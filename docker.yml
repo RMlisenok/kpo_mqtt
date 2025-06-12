@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    command: bash -c "./scripts/run_tests.sh && gunicorn app.wsgi"
+    depends_on:
+      - mqtt
+      - redis
+  mqtt:
+    image: eclipse-mosquitto
+  redis:
+    image: redis
+  mock_device:
+    build: ./tests/integration/mock_device
